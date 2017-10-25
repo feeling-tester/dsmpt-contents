@@ -1,0 +1,37 @@
+@charset "UTF-8";
+
+body {
+	  /* 背景色(画像で塗りつぶされているために表示なし) */
+	  background-color: rgb(255, 253, 230);
+	  /* 全体の文字サイズ */
+	  font-size: 100%;
+	  /* 行間のサイズ */
+	  line-height: 1.5;
+}
+
+header .title {
+	font-size : 80px;
+	text-align: center;
+	margin: 0 auto;
+}
+
+section {
+	  margin: 0 auto;
+	  width: 87%;
+	  /* padding-top: 30px; */
+}
+
+section .subtitle {
+	  font-size : 50px;
+}
+section p {
+	  font-size: 30px;
+}
+section ul {
+    list-style-type: hebrew;
+	  font-size: 30px;
+}
+section p form select{
+    -webkit-appearance: none;
+	  font-size: 30px;
+}
