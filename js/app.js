@@ -47,7 +47,7 @@ function initMap() {
     }
 }
 var infoWindowOpenFlag = FALSE;
-
+var infoWindowOpenCounter = 0;
 function markerEvent(i) {
     
     //もしスマホとかタッチパネル型の機器だったら
@@ -57,17 +57,23 @@ function markerEvent(i) {
         navigator.userAgent.indexOf('Android') > 0) {
         
         marker[i].addListener('mousedown', function() { // タップ
-            switch (infoWindowOpenFlag) {
-            case TRUE:
-                infoWindow[i].close(map, marker[i]); // 吹き出しの削除
-                infoWindowOpenFlag = FALSE;
-                break;
-            case FALSE:
-                infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-                infoWindowOpenFlag = TRUE;
-                break;
+            if (infoWindowOpenCounter > 500) {
+                switch (infoWindowOpenFlag) {
+                case TRUE:
+                    infoWindow[i].close(map, marker[i]); // 吹き出しの削除
+                    infoWindowOpenFlag = FALSE;
+                    infoWindowOpenCounter = 0;
+                    break;
+                case FALSE:
+                    infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+                    infoWindowOpenFlag = TRUE;
+                    infoWindowOpenCounter = 0;
+                    break;
+                }
             }
-            
+            else {
+                infoWindowOpenCounter++;
+            }
         });
         // marker[i].addListener('mouseout', function() { // マウスのらない
         //     infoWindow[i].close(map, marker[i]); // 吹き出しの消し
