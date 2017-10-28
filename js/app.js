@@ -67,7 +67,7 @@ function initMap() {
             lngdiff = place[0]['lng'] - pos['lng'];
             len = ((latdiff * latdiff) + (lngdiff * lngdiff));
 
-            setZoom(len / 10);
+            map.setZoom(len / 10);
             
         }, function() {
             handleLocationError(true, GeolocationWindow, map.getCenter());
