@@ -46,7 +46,7 @@ function initMap() {
         
     }
 }
-var infoWindowOpenFlag = FALSE;
+var infoWindowOpenFlag = 0;
 var infoWindowOpenCounter = 0;
 function markerEvent(i) {
     
@@ -59,14 +59,14 @@ function markerEvent(i) {
         marker[i].addListener('mousedown', function() { // タップ
             if (infoWindowOpenCounter > 500) {
                 switch (infoWindowOpenFlag) {
-                case TRUE:
+                case 1:
                     infoWindow[i].close(map, marker[i]); // 吹き出しの削除
-                    infoWindowOpenFlag = FALSE;
+                    infoWindowOpenFlag = 0;
                     infoWindowOpenCounter = 0;
                     break;
-                case FALSE:
+                case 0:
                     infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-                    infoWindowOpenFlag = TRUE;
+                    infoWindowOpenFlag = 1;
                     infoWindowOpenCounter = 0;
                     break;
                 }
