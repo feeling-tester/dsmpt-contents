@@ -48,6 +48,10 @@ function initMap() {
 }
 var infoWindowOpenFlag = 0;
 var infoWindowOpenCounter = 0;
+var start = 0;
+
+var kk = 1;
+
 function markerEvent(i) {
     
     //もしスマホとかタッチパネル型の機器だったら
@@ -55,33 +59,23 @@ function markerEvent(i) {
         navigator.userAgent.indexOf('iPad') > 0 ||
         navigator.userAgent.indexOf('iPod') > 0 ||
         navigator.userAgent.indexOf('Android') > 0) {
-        
-        marker[i].addListener('mousedown', function() { // タップ
-            if (infoWindowOpenCounter > 500) {
-                switch (infoWindowOpenFlag) {
-                case 1:
-                    infoWindow[i].close(map, marker[i]); // 吹き出しの削除
-                    infoWindowOpenFlag = 0;
-                    infoWindowOpenCounter = 0;
-                    break;
-                case 0:
-                    infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-                    infoWindowOpenFlag = 1;
-                    infoWindowOpenCounter = 0;
-                    break;
-                }
-            }
-            else {
-                infoWindowOpenCounter++;
-            }
-        });
-        // marker[i].addListener('mouseout', function() { // マウスのらない
-        //     infoWindow[i].close(map, marker[i]); // 吹き出しの消し
-        // });
 
-        
+        marker[i].addListener('mousedown', function() { // タップ
+            switch (infoWindowOpenFlag) {
+            case 1:
+                infoWindow[i].close(map, marker[i]); // 吹き出しの削除
+                infoWindowOpenFlag = 0;
+                infoWindowOpenCounter = 0;
+                break;
+            case 0:
+                infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+                infoWindowOpenFlag = 1;
+                infoWindowOpenCounter = 0;
+                break;
+            }
+        });        
     }
-    else {    
+    else {
         marker[i].addListener('mousemove', function() { // マウス乗る
             infoWindow[i].open(map, marker[i]); // 吹き出しの表示
         });
