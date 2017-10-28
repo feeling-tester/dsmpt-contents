@@ -4,6 +4,7 @@ var marker = [];
 var a = Math.floor( Math.random() * (max + 1 - min) ) + min ;
 var b = Math.floor( Math.random() * (max + 1 - min) ) + min ;
 var infoWindow = [];
+var pos;
 var place = [
     {
         name: '三重大学',
@@ -52,7 +53,7 @@ function initMap() {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
+            pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
