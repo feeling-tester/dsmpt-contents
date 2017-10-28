@@ -5,6 +5,10 @@ var a = Math.floor( Math.random() * (max + 1 - min) ) + min ;
 var b = Math.floor( Math.random() * (max + 1 - min) ) + min ;
 var infoWindow = [];
 var pos;
+
+var len;
+var latdiff;
+var lngdiff; 
 var place = [
     {
         name: '三重大学',
@@ -46,8 +50,6 @@ function initMap() {
         markerEvent(i); // マーカーにクリックイベントを追加
         
     }
-
-
     var GeolocationWindow = new google.maps.InfoWindow({map: map});
 
     // Try HTML5 geolocation.
@@ -61,9 +63,9 @@ function initMap() {
             GeolocationWindow.setPosition(pos);
             GeolocationWindow.setContent('Location found.');
             map.setCenter(pos);
-            var latdiff = place[0]['lat'] - pos[0]['lat'];
-            var lngdiff = place[0]['lng'] - pos[0]['lng'];
-            var len = sqrt((latdiff * latdiff) + (lngdiff * lngdiff));
+            latdiff = place[0]['lat'] - pos['lat'];
+            lngdiff = place[0]['lng'] - pos['lng'];
+            len = sqrt((latdiff * latdiff) + (lngdiff * lngdiff));
 
             setZoom(len / 10);
             
