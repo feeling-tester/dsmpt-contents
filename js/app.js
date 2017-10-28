@@ -26,8 +26,8 @@ var place = [
 ];
 
 function initMap() {
-    var uluru = {lat: -25.363, lng: 131.044};
-    var nagoya = {lat: 35.1650616, lng: 136.8998335};
+    //var uluru = {lat: -25.363, lng: 131.044};
+    //var nagoya = {lat: 35.1650616, lng: 136.8998335};
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: place[0]
@@ -60,6 +60,12 @@ function initMap() {
             GeolocationWindow.setPosition(pos);
             GeolocationWindow.setContent('Location found.');
             map.setCenter(pos);
+            var latdiff = place[0]['lat'] - pos[0]['lat'];
+            var lngdiff = place[0]['lng'] - pos[0]['lng'];
+            var len = sqrt((latdiff * latdiff) + (lngdiff * lngdiff));
+
+            setZoom(len / 10);
+            
         }, function() {
             handleLocationError(true, GeolocationWindow, map.getCenter());
         });
@@ -74,6 +80,7 @@ function initMap() {
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
     }
+    
 
     
 }
