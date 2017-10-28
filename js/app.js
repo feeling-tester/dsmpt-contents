@@ -47,10 +47,6 @@ function initMap() {
     }
 }
 var infoWindowOpenFlag = 0;
-var infoWindowOpenCounter = 0;
-var start = 0;
-
-var kk = 1;
 
 function markerEvent(i) {
     
