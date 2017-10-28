@@ -65,7 +65,7 @@ function initMap() {
             map.setCenter(pos);
             latdiff = place[0]['lat'] - pos['lat'];
             lngdiff = place[0]['lng'] - pos['lng'];
-            len = sqrt((latdiff * latdiff) + (lngdiff * lngdiff));
+            len = ((latdiff * latdiff) + (lngdiff * lngdiff));
 
             setZoom(len / 10);
             
