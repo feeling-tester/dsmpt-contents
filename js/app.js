@@ -46,13 +46,41 @@ function initMap() {
         
     }
 }
+var infoWindowOpenFlag = FALSE;
 
 function markerEvent(i) {
-    marker[i].addListener('mousemove', function() { // マウス乗る
-        infoWindow[i].open(map, marker[i]); // 吹き出しの表示
-    });
-    marker[i].addListener('mouseout', function() { // マウスのらない
-        infoWindow[i].close(map, marker[i]); // 吹き出しの消し
-    });
     
+    //もしスマホとかタッチパネル型の機器だったら
+    if (navigator.userAgent.indexOf('iPhone') > 0 ||
+        navigator.userAgent.indexOf('iPad') > 0 ||
+        navigator.userAgent.indexOf('iPod') > 0 ||
+        navigator.userAgent.indexOf('Android') > 0) {
+        
+        marker[i].addListener('mousedown', function() { // タップ
+            switch (infoWindowOpenFlag) {
+            case TRUE:
+                infoWindow[i].close(map, marker[i]); // 吹き出しの削除
+                infoWindowOpenFlag = FALSE;
+                break;
+            case FALSE:
+                infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+                infoWindowOpenFlag = TRUE;
+                break;
+            }
+            
+        });
+        // marker[i].addListener('mouseout', function() { // マウスのらない
+        //     infoWindow[i].close(map, marker[i]); // 吹き出しの消し
+        // });
+
+        
+    }
+    else {    
+        marker[i].addListener('mousemove', function() { // マウス乗る
+            infoWindow[i].open(map, marker[i]); // 吹き出しの表示
+        });
+        marker[i].addListener('mouseout', function() { // マウスのらない
+            infoWindow[i].close(map, marker[i]); // 吹き出しの消し
+        });
+    }
 }
