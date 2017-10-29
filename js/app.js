@@ -11,33 +11,40 @@ var latdiff;
 var lngdiff; 
 var place = [
     {
-        name: '三重大学',
-        lat: 34.7464554,
-        lng: 136.5213918,
-        description: "ばなな",
+        name: '三重大学中心',
+        lat: 34.745217, // 34.745217, 136.522584 
+        lng: 136.522584,
+        description: "",
     },
     {
-        name: '三重大学1',
-        lat: 34.7464554 + (a/1000),
-        lng: 136.5213918,
-        description: "Gitは油でギットギト",
+        name: 'みニャすとろーね 〜ねこサークル模擬店〜',
+         lat: 34.744324, //136.523965 34.744324, 136.526032
+        lng: 136.526032,
+        description: "ミネストローネ、コンソメスープを販売するよ！",
     },
     {
-        name: '三重大学2',
-        lat: 34.7464554,
-        lng: 136.5213918 + (b / 1000),
-        description: "人生ワンワンかたつむり！！",
-    }
+        name: 'ねこサークルフリマ', //34.745144, 136.525782 
+        lat: 34.745144,
+        lng: 136.525782,
+        description: "様々なものを格安で打ってるよ！ラジオとかもあるかもよ！",
+    },
+    {
+        name: 'Tales of the world 〜三重大学放送局〜', //34.745144, 136.525782 
+        lat: 34.745049,
+        lng: 136.524716,
+        description: "メイプル（環境情報科学館）の3階で子どもたちに読み聞かせをするよ！",
+    },
+    
 ];
 
 function initMap() {
     //var uluru = {lat: -25.363, lng: 131.044};
     //var nagoya = {lat: 35.1650616, lng: 136.8998335};
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 15,
+        zoom: 16,
         center: place[0]
     });
-    for (var i = 0; i < place.length; i++) { //マーカーどーーーーーーん
+    for (var i = 1; i < place.length; i++) { //マーカーどーーーーーーん
         markerLatLng = new google.maps.LatLng({lat: place[i]['lat'], lng: place[i]['lng']});
         marker[i] = new google.maps.Marker({
             position: markerLatLng,
@@ -63,11 +70,6 @@ function initMap() {
             GeolocationWindow.setPosition(pos);
             GeolocationWindow.setContent('Location found.');
             map.setCenter(pos);
-            latdiff = place[0]['lat'] - pos['lat'];
-            lngdiff = place[0]['lng'] - pos['lng'];
-            len = ((latdiff * latdiff) + (lngdiff * lngdiff));
-
-            map.setZoom(len * 10);
             
         }, function() {
             handleLocationError(true, GeolocationWindow, map.getCenter());
@@ -83,8 +85,6 @@ function initMap() {
                               'Error: The Geolocation service failed.' :
                               'Error: Your browser doesn\'t support geolocation.');
     }
-    
-
     
 }
 var infoWindowOpenFlag = 0;
