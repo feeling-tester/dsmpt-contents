@@ -41,7 +41,7 @@ function initMap() {
     //var uluru = {lat: -25.363, lng: 131.044};
     //var nagoya = {lat: 35.1650616, lng: 136.8998335};
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
+        zoom: 15,
         center: place[0]
     });
     for (var i = 1; i < place.length; i++) { //マーカーどーーーーーーん
