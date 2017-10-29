@@ -11,10 +11,10 @@ var latdiff;
 var lngdiff; 
 var place = [
     {
-        name: '三重大学中心',
+        // name: '三重大学中心',
         lat: 34.745217, // 34.745217, 136.522584 
         lng: 136.522584,
-        description: "",
+        // description: "",
     },
     {
         name: 'みニャすとろーね 〜ねこサークル模擬店〜',
@@ -85,6 +85,7 @@ function initMap() {
           //                    'Error: The Geolocation service failed.' :
           //                    'Error: Your browser doesn\'t support geolocation.');
     }
+    map.setCenter(place[0]);
     
 }
 var infoWindowOpenFlag = 0;

@@ -35,3 +35,24 @@ section p form select{
     -webkit-appearance: none;
 	  font-size: 30px;
 }
+#map {
+    margin: 0 auto;
+    height: 400px;
+    width: 90%;
+}
+
+
+@media only screen and (min-width:  600px) { 
+    #map {
+        /* padding-bottom: 400px; */
+        height: 400px;
+    }
+}
+
+@media only screen and (min-width:  960px) { 
+    #map {
+        /* padding-bottom: 500px; */
+        height: 500px;
+    }
+}
+
