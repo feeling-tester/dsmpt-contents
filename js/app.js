@@ -57,8 +57,8 @@ function initMap() {
         markerEvent(i); // マーカーにクリックイベントを追加
         
     }
-    var GeolocationWindow = new google.maps.InfoWindow({map: map});
-
+    var GeolocationWindow;
+ 
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -66,6 +66,7 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
+            GeolocationWindow = new google.maps.InfoWindow({map: map});
 
             GeolocationWindow.setPosition(pos);
             GeolocationWindow.setContent('Location found.');
@@ -80,10 +81,10 @@ function initMap() {
     }
     
     function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        //infoWindow.setPosition(pos);
-        //infoWindow.setContent(browserHasGeolocation ?
-          //                    'Error: The Geolocation service failed.' :
-          //                    'Error: Your browser doesn\'t support geolocation.');
+        // infoWindow.setPosition(pos);
+        // infoWindow.setContent(browserHasGeolocation ?
+        //                      'Error: The Geolocation service failed.' :
+        //                      'Error: Your browser doesn\'t support geolocation.');
     }
     map.setCenter(place[0]);
     
