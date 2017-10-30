@@ -5,7 +5,6 @@ var a = Math.floor( Math.random() * (max + 1 - min) ) + min ;
 var b = Math.floor( Math.random() * (max + 1 - min) ) + min ;
 var infoWindow = [];
 var pos;
-
 var len;
 var latdiff;
 var lngdiff; 
@@ -17,7 +16,7 @@ var place = [
         // description: "",
     },
     {
-        name: 'みニャすとろーね 〜ねこサークル模擬店〜',
+        name: 'みニャすとろーね<br>〜ねこサークル模擬店〜',
          lat: 34.744324, //136.523965 34.744324, 136.526032
         lng: 136.526032,
         description: "ミネストローネ、コンソメスープを販売するよ！",
@@ -26,13 +25,13 @@ var place = [
         name: 'ねこサークルフリマ', //34.745144, 136.525782 
         lat: 34.745144,
         lng: 136.525782,
-        description: "様々なものを格安で打ってるよ！ラジオとかもあるかもよ！",
+        description: "様々なものを格安で打ってるよ！<br>ラジオとかもあるかもよ！",
     },
     {
-        name: 'Tales of the world 〜三重大学放送局〜', //34.745144, 136.525782 
+        name: 'Tales of the world <br>〜三重大学放送局〜', //34.745144, 136.525782 
         lat: 34.745049,
         lng: 136.524716,
-        description: "メイプル（環境情報科学館）の3階で子どもたちに読み聞かせをするよ！",
+        description: "メイプル（環境情報科学館）の3階で<br>子どもたちに読み聞かせをするよ！",
     },
     
 ];
@@ -71,6 +70,8 @@ function initMap() {
             GeolocationWindow.setPosition(pos);
             GeolocationWindow.setContent('Location found.');
             map.setCenter(pos);
+            //console.log(call_calc_distance(place[0], pos));
+            append_html_back('map_description', '現在地から三重大学まで約' + get_distance(place[0], pos) + 'km');
             
         }, function() {
             handleLocationError(true, GeolocationWindow, map.getCenter());
@@ -87,9 +88,14 @@ function initMap() {
         //                      'Error: Your browser doesn\'t support geolocation.');
     }
     map.setCenter(place[0]);
-    
 }
 var infoWindowOpenFlag = 0;
+
+function append_html_back(id, message) {
+    var tag = document.getElementById(id);
+    var text = document.createTextNode(message);
+    tag.appendChild(text);
+}
 
 function markerEvent(i) {
     
@@ -122,4 +128,47 @@ function markerEvent(i) {
             infoWindow[i].close(map, marker[i]); // 吹き出しの消し
         });
     }
+}
+
+function get_distance(a,b) {
+    var message = calc_distance(a['lng'], a['lat'], b['lng'], b['lat']);
+    message = parseInt(message);
+    message /= 1000;
+    return message;
+}
+
+function calc_distance(x1, y1, x2,y2) {
+    x1 = x1 * Math.PI / 180;
+    y1 = y1 * Math.PI / 180;
+    x2 = x2 * Math.PI / 180;
+    y2 = y2 * Math.PI / 180;
+    console.log('x1 : ' + x1);
+    //ヒュベニの公式　測地系 WGS84
+    var Rx = 6378137.000, Ry = 6356752.314245//
+    var diff_x = x1 - x2;
+    console.log('diff_x ' + diff_x + '\n');//
+    var diff_y = y1 - y2;
+    console.log('diff_y ' + diff_y + '\n');//
+    var ave_y = (y1 + y2) / 2;
+    //ave_y = ave_y * (180 / Math.PI);
+    
+    var E = (Rx * Rx) - (Ry * Ry) //
+    E /= (Rx * Rx);//
+    E = Math.sqrt(E);//
+    console.log('E^2 ' + E*E + '\n');//
+
+    var W = 1 - Math.pow(E * Math.sin(ave_y), 2);
+    W = Math.sqrt(W);
+    console.log('W : ' + W);
+
+    var N = Rx / W;
+    console.log('N : ' + N);
+    var M = Rx * (1 - (E * E));
+    M /= Math.pow(W, 3);
+    console.log('M : ' + M);
+    var distance = Math.pow(diff_y * M , 2) + Math.pow(diff_x * N * Math.cos(ave_y), 2);
+    distance = Math.sqrt(distance);
+    console.log('distance : ' + distance);
+
+    return distance;
 }
