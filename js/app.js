@@ -7,7 +7,7 @@ var infoWindow = [];
 var pos;
 var len;
 var latdiff;
-var lngdiff; 
+var lngdiff;
 var place = [
     {
         // name: '三重大学中心',
@@ -37,8 +37,11 @@ var place = [
 ];
 
 function initMap() {
-    //var uluru = {lat: -25.363, lng: 131.044};
-    //var nagoya = {lat: 35.1650616, lng: 136.8998335};
+    var center =
+    {
+        lat: 0, 
+        lng: 0,
+    };    
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
         center: place[0]
@@ -69,10 +72,15 @@ function initMap() {
 
             GeolocationWindow.setPosition(pos);
             GeolocationWindow.setContent('Location found.');
-            map.setCenter((pos + place[0]) / 2);
+
+            center['lat'] = (place[0]['lat'] + pos['lat']) / 2;
+            center['lng'] = (place[0]['lng'] + pos['lng']) / 2;
+            map.setCenter(center);
             //console.log(call_calc_distance(place[0], pos));
             append_html_back('map_data', '現在地から三重大学まで約' + get_distance(place[0], pos) + 'km');
             set_zoom(map, get_distance(place[0], pos));
+            //console.log(center);
+
         }, function() {
             handleLocationError(true, GeolocationWindow, map.getCenter());
         });
@@ -81,11 +89,12 @@ function initMap() {
         handleLocationError(false, GeolocationWindow, map.getCenter());
     }
     
-    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-        // infoWindow.setPosition(pos);
-        // infoWindow.setContent(browserHasGeolocation ?
-        //                      'Error: The Geolocation service failed.' :
-        //                      'Error: Your browser doesn\'t support geolocation.');
+    function handleLocationError(browserHasGeolocation, GeolocationWindow, pos) {
+        GeolocationWindow = new google.maps.InfoWindow({map: map});
+        GeolocationWindow.setPosition(pos);
+        GeolocationWindow.setContent(browserHasGeolocation ?
+                             'Error: The Geolocation service failed.' :
+                             'Error: Your browser doesn\'t support geolocation.');
     }
     //map.setCenter(place[0]);
 }
@@ -93,7 +102,7 @@ var infoWindowOpenFlag = 0;
 var i;
 function set_zoom(map, distance) {
     i = distance;
-    console.log('4');
+    //console.log('4');
     if (500 >= distance) {
         map.setZoom(5);
     }
@@ -185,33 +194,33 @@ function calc_distance(x1, y1, x2,y2) {
     y1 = y1 * Math.PI / 180;
     x2 = x2 * Math.PI / 180;
     y2 = y2 * Math.PI / 180;
-    console.log('x1 : ' + x1);
+    //console.log('x1 : ' + x1);
     //ヒュベニの公式　測地系 WGS84
     var Rx = 6378137.000, Ry = 6356752.314245//
     var diff_x = x1 - x2;
-    console.log('diff_x ' + diff_x + '\n');//
+    //console.log('diff_x ' + diff_x + '\n');//
     var diff_y = y1 - y2;
-    console.log('diff_y ' + diff_y + '\n');//
+    //console.log('diff_y ' + diff_y + '\n');//
     var ave_y = (y1 + y2) / 2;
     //ave_y = ave_y * (180 / Math.PI);
     
     var E = (Rx * Rx) - (Ry * Ry) //
     E /= (Rx * Rx);//
     E = Math.sqrt(E);//
-    console.log('E^2 ' + E*E + '\n');//
+    //console.log('E^2 ' + E*E + '\n');//
 
     var W = 1 - Math.pow(E * Math.sin(ave_y), 2);
     W = Math.sqrt(W);
-    console.log('W : ' + W);
+    //console.log('W : ' + W);
 
     var N = Rx / W;
-    console.log('N : ' + N);
+    //console.log('N : ' + N);
     var M = Rx * (1 - (E * E));
     M /= Math.pow(W, 3);
-    console.log('M : ' + M);
+    //console.log('M : ' + M);
     var distance = Math.pow(diff_y * M , 2) + Math.pow(diff_x * N * Math.cos(ave_y), 2);
     distance = Math.sqrt(distance);
-    console.log('distance : ' + distance);
+    //console.log('distance : ' + distance);
 
     return distance;
 }
