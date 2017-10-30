@@ -17,7 +17,7 @@ header .title {
 
 section {
 	  margin: 0 auto;
-	  width: 87%;
+	  width: 90%;
 	  /* padding-top: 30px; */
 }
 
@@ -38,7 +38,7 @@ section p form select{
 #map {
     margin: 0 auto;
     height: 400px;
-    width: 90%;
+    width: 100%;
 }
 
 
