@@ -69,7 +69,7 @@ function initMap() {
 
             GeolocationWindow.setPosition(pos);
             GeolocationWindow.setContent('Location found.');
-            map.setCenter(pos);
+            map.setCenter((pos + place[0]) / 2);
             //console.log(call_calc_distance(place[0], pos));
             append_html_back('map_data', '現在地から三重大学まで約' + get_distance(place[0], pos) + 'km');
             set_zoom(map, get_distance(place[0], pos));
