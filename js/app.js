@@ -72,7 +72,7 @@ function initMap() {
             map.setCenter(pos);
             //console.log(call_calc_distance(place[0], pos));
             append_html_back('map_data', '現在地から三重大学まで約' + get_distance(place[0], pos) + 'km');
-            
+            set_zoom(map, get_distance(place[0], pos));
         }, function() {
             handleLocationError(true, GeolocationWindow, map.getCenter());
         });
@@ -90,6 +90,49 @@ function initMap() {
     map.setCenter(place[0]);
 }
 var infoWindowOpenFlag = 0;
+var i;
+function set_zoom(map, distance) {
+    i = distance;
+    console.log('4');
+    if (500 >= distance) {
+        map.setZoom(5);
+    }
+    if (200 >= distance) {
+        map.setZoom(6);
+    }
+    if (100 >= distance) {
+     map.setZoom(7);
+    }
+    if (50 >= distance) {
+        map.setZoom(8);
+    }
+    if (20 >= distance) {
+        console.log('4');
+        map.setZoom(9);
+    }
+    if (10 >= distance) {
+        map.setZoom(10);
+    }
+    if (5 >= distance) {
+        map.setZoom(11);
+    }
+    if (2 >= distance) {
+        map.setZoom(12);
+    }
+    if (1 >= distance) {
+        map.setZoom(13);
+    }
+    if (0.5 >= distance) {
+        map.setZoom(14);
+    }
+    if (0.2 >= distance) {
+        map.setZoom(16);
+    }
+    if (0.1 >= distance) {
+        map.setZoom(17);
+    }
+}
+
 
 function append_html_back(id, message) {
     var tag = document.getElementById(id);
