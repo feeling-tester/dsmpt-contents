@@ -43,7 +43,7 @@ function initMap() {
         zoom: 15,
         center: place[0]
     });
-    for (var i = 0; i < place.length; i++) { //マーカーどーーーーーーん
+    for (var i = 1; i < place.length; i++) { //マーカーどーーーーーーん
         markerLatLng = new google.maps.LatLng({lat: place[i]['lat'], lng: place[i]['lng']});
         marker[i] = new google.maps.Marker({
             position: markerLatLng,
