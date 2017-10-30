@@ -87,7 +87,7 @@ function initMap() {
         //                      'Error: The Geolocation service failed.' :
         //                      'Error: Your browser doesn\'t support geolocation.');
     }
-    map.setCenter(place[0]);
+    //map.setCenter(place[0]);
 }
 var infoWindowOpenFlag = 0;
 var i;
